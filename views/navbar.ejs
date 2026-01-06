@@ -1,0 +1,177 @@
+<style>
+.navbar-green {
+    background-color: #2e7d32; /* Hijau utama */
+    color: white;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+}
+
+.sidebar-toggle {
+    font-size: 1.8rem;
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+/* SIDEBAR */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 260px;
+    height: 100%;
+    background: #1b5e20;
+    color: white;
+    padding: 20px;
+    overflow-y: auto;
+    transition: .3s ease;
+    z-index: 2000;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar h1 {
+    font-size: 1.6rem;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar nav ul li {
+    margin: 12px 0;
+}
+
+.sidebar nav ul li a {
+    color: #c8f7c5;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 10px 12px;
+    display: block;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+.sidebar nav ul li a:hover {
+    background: #2e7d32;
+    color: #fff;
+}
+
+/* Logout */
+.logout-form {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.logout-form button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    background: #c62828;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: .2s;
+}
+
+.logout-form button:hover {
+    background: #ff4444;
+}
+
+/* Overlay */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    z-index: 1500;
+}
+
+.sidebar-overlay.active {
+    display: block;
+}
+</style>
+
+<nav class="navbar-green">
+    <button class="sidebar-toggle">☰</button>
+    <a href="/usamart" class="navbar-brand">Usamart</a>
+</nav>
+
+<div class="sidebar-overlay"></div>
+
+<aside class="sidebar">
+    <h1>Menu</h1>
+    <nav>
+        <ul>
+            <li><a href="/usamart/item">Management Item</a></li>
+            <li><a href="/usamart/category">Management Category</a></li>
+            <li><a href="/usamart"></a>Homepage</li>
+        </ul>
+    </nav>
+
+    <form action="/auth/logout" method="GET" class="logout-form">
+        <button type="submit">Logout</button>
+    </form>
+</aside>
+
+<!-- SCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const sidebarToggle = document.querySelector(".sidebar-toggle");
+    const sidebar = document.querySelector(".sidebar");
+    const sidebarOverlay = document.querySelector(".sidebar-overlay");
+
+    if (sidebarToggle && sidebar && sidebarOverlay) {
+        sidebarToggle.addEventListener("click", () => {
+            sidebar.classList.toggle("active");
+            sidebarOverlay.classList.toggle("active");
+        });
+
+        sidebarOverlay.addEventListener("click", () => {
+            sidebar.classList.remove("active");
+            sidebarOverlay.classList.remove("active");
+        });
+
+        // Auto close on mobile
+        if (window.innerWidth <= 767) {
+            document.querySelectorAll(".sidebar a").forEach(link => {
+                link.addEventListener("click", () => {
+                    sidebar.classList.remove("active");
+                    sidebarOverlay.classList.remove("active");
+                });
+            });
+        }
+    }
+});
+
+// Close on resize (desktop)
+window.addEventListener("resize", () => {
+    const sidebar = document.querySelector(".sidebar");
+    const sidebarOverlay = document.querySelector(".sidebar-overlay");
+
+    if (sidebar && sidebarOverlay && window.innerWidth > 767) {
+        sidebar.classList.remove("active");
+        sidebarOverlay.classList.remove("active");
+    }
+});
+</script>

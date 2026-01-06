@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>404 Not Found</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css">
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #3399ff, #6f42c1);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .not-found-box {
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      max-width: 600px;
+      width: 100%;
+      animation: pop 0.3s ease;
+    }
+    @keyframes pop {
+      from { transform: scale(.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="not-found-box text-center">
+    <h1 class="display-3 fw-bold text-warning">404</h1>
+    <p class="lead text-secondary">Halaman yang kamu cari tidak ditemukan.</p>
+
+    <p class="text-muted mb-4">
+      URL: <span class="fw-bold text-danger"><%= url %></span>
+    </p>
+
+    <a href="/" class="btn btn-primary px-4 py-2">Kembali ke Home</a>
+  </div>
+
+</body>
+</html>
